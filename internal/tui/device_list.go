@@ -38,11 +38,11 @@ type adbVersionMsg struct {
 	version string
 }
 
-func (devicesRefreshMsg) deviceListMsg()  {}
-func (wirelessSwitchMsg) deviceListMsg()  {}
-func (serverActionMsg) deviceListMsg()    {}
-func (adbVersionMsg) deviceListMsg()      {}
-func (tickDevicesMsg) deviceListMsg()     {}
+func (devicesRefreshMsg) deviceListMsg() {}
+func (wirelessSwitchMsg) deviceListMsg() {}
+func (serverActionMsg) deviceListMsg()   {}
+func (adbVersionMsg) deviceListMsg()     {}
+func (tickDevicesMsg) deviceListMsg()    {}
 
 type DeviceListModel struct {
 	client            *adb.Client

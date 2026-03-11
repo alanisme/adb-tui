@@ -68,4 +68,3 @@ func (c *Client) RunInstrumentation(ctx context.Context, serial, component strin
 	}
 	return result, nil
 }
-

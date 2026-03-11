@@ -70,8 +70,8 @@ func registerUITools(s *Server, client *adb.Client) {
 			}
 			// Wrap with index for tap_element reference
 			type indexed struct {
-				Index   int            `json:"index"`
-				Element adb.UIElement  `json:"element"`
+				Index   int           `json:"index"`
+				Element adb.UIElement `json:"element"`
 				CenterX int           `json:"center_x"`
 				CenterY int           `json:"center_y"`
 			}

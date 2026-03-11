@@ -1,11 +1,11 @@
 package adb
 
 import (
+	"cmp"
 	"context"
 	"encoding/base64"
 	"encoding/xml"
 	"fmt"
-	"cmp"
 	"slices"
 	"strconv"
 	"strings"
@@ -14,24 +14,24 @@ import (
 
 // UINode represents a single node in the Android UI hierarchy.
 type UINode struct {
-	Index              int       `xml:"index,attr"`
-	Text               string    `xml:"text,attr"`
-	ResourceID         string    `xml:"resource-id,attr"`
-	Class              string    `xml:"class,attr"`
-	Package            string    `xml:"package,attr"`
-	ContentDescription string    `xml:"content-desc,attr"`
-	Checkable          bool      `xml:"checkable,attr"`
-	Checked            bool      `xml:"checked,attr"`
-	Clickable          bool      `xml:"clickable,attr"`
-	Enabled            bool      `xml:"enabled,attr"`
-	Focusable          bool      `xml:"focusable,attr"`
-	Focused            bool      `xml:"focused,attr"`
-	Scrollable         bool      `xml:"scrollable,attr"`
-	LongClickable      bool      `xml:"long-clickable,attr"`
-	Password           bool      `xml:"password,attr"`
-	Selected           bool      `xml:"selected,attr"`
-	Bounds             string    `xml:"bounds,attr"`
-	Children           []UINode  `xml:"node"`
+	Index              int      `xml:"index,attr"`
+	Text               string   `xml:"text,attr"`
+	ResourceID         string   `xml:"resource-id,attr"`
+	Class              string   `xml:"class,attr"`
+	Package            string   `xml:"package,attr"`
+	ContentDescription string   `xml:"content-desc,attr"`
+	Checkable          bool     `xml:"checkable,attr"`
+	Checked            bool     `xml:"checked,attr"`
+	Clickable          bool     `xml:"clickable,attr"`
+	Enabled            bool     `xml:"enabled,attr"`
+	Focusable          bool     `xml:"focusable,attr"`
+	Focused            bool     `xml:"focused,attr"`
+	Scrollable         bool     `xml:"scrollable,attr"`
+	LongClickable      bool     `xml:"long-clickable,attr"`
+	Password           bool     `xml:"password,attr"`
+	Selected           bool     `xml:"selected,attr"`
+	Bounds             string   `xml:"bounds,attr"`
+	Children           []UINode `xml:"node"`
 }
 
 // UIHierarchy is the root of a uiautomator dump.

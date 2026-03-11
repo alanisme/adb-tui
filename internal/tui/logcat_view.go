@@ -40,11 +40,11 @@ type logcatExportMsg struct {
 	err  error
 }
 
-func (logcatEntryMsg) logcatMsg()          {}
-func (logcatStreamStoppedMsg) logcatMsg()  {}
-func (logcatStreamStartedMsg) logcatMsg()  {}
-func (logcatClearedMsg) logcatMsg()        {}
-func (logcatExportMsg) logcatMsg()         {}
+func (logcatEntryMsg) logcatMsg()         {}
+func (logcatStreamStoppedMsg) logcatMsg() {}
+func (logcatStreamStartedMsg) logcatMsg() {}
+func (logcatClearedMsg) logcatMsg()       {}
+func (logcatExportMsg) logcatMsg()        {}
 
 type LogcatModel struct {
 	client           *adb.Client

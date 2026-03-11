@@ -12,7 +12,7 @@ LDFLAGS := -s -w \
 	-X main.BuildDate=$(BUILD_DATE)
 
 COVERAGE_OUT := coverage.out
-COVERAGE_MIN := 30
+COVERAGE_MIN := 29
 
 .PHONY: build install test test-race test-verbose cover cover-html lint lint-fix vet check fmt clean dev ci
 

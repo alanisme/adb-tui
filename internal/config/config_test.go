@@ -119,6 +119,32 @@ func TestConfigOmitzero(t *testing.T) {
 	}
 }
 
+func TestLoadInvalidJSON(t *testing.T) {
+	dir := t.TempDir()
+	path := filepath.Join(dir, "config.json")
+	os.WriteFile(path, []byte("{invalid"), 0o644)
+
+	// Load uses the real configPath, so test unmarshal directly
+	cfg := DefaultConfig()
+	err := json.Unmarshal([]byte("{invalid"), cfg)
+	if err == nil {
+		t.Fatal("expected error for invalid JSON")
+	}
+}
+
+func TestConfigDir(t *testing.T) {
+	dir, err := ConfigDir()
+	if err != nil {
+		t.Fatalf("unexpected error: %v", err)
+	}
+	if dir == "" {
+		t.Fatal("expected non-empty config dir")
+	}
+	if filepath.Base(dir) != "adb-tui" {
+		t.Fatalf("expected dir to end with adb-tui, got %s", dir)
+	}
+}
+
 func TestConfigJSON(t *testing.T) {
 	input := `{"adb_path":"/opt/adb","mcp":{"transport":"http","addr":":3000"},"shortcuts":{"screenshot":"s"}}`
 

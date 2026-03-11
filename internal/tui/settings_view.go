@@ -27,7 +27,7 @@ type settingsActionMsg struct {
 	err    error
 }
 
-func (settingsListMsg) settingsMsg()  {}
+func (settingsListMsg) settingsMsg()   {}
 func (settingsActionMsg) settingsMsg() {}
 
 type settingEntry struct {

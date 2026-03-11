@@ -45,26 +45,26 @@ var viewNames = []string{
 var viewKeys = []string{"1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "-"}
 
 type Model struct {
-	client           *adb.Client
-	activeView       View
-	width            int
-	height           int
-	serial           string
-	showHelp         bool
-	showThemePicker  bool
-	themeCursor      int
-	confirmQuit      bool
-	deviceList       DeviceListModel
-	deviceInfo       DeviceInfoModel
-	shell            ShellModel
-	logcat           LogcatModel
-	files            FileModel
-	packages         PackageModel
-	forward          ForwardModel
-	input            InputModel
-	process          ProcessModel
-	settings         SettingsModel
-	performance      PerformanceModel
+	client          *adb.Client
+	activeView      View
+	width           int
+	height          int
+	serial          string
+	showHelp        bool
+	showThemePicker bool
+	themeCursor     int
+	confirmQuit     bool
+	deviceList      DeviceListModel
+	deviceInfo      DeviceInfoModel
+	shell           ShellModel
+	logcat          LogcatModel
+	files           FileModel
+	packages        PackageModel
+	forward         ForwardModel
+	input           InputModel
+	process         ProcessModel
+	settings        SettingsModel
+	performance     PerformanceModel
 }
 
 func NewApp(client *adb.Client) *App {
@@ -89,7 +89,6 @@ func NewApp(client *adb.Client) *App {
 type App struct {
 	model Model
 }
-
 
 func (a *App) Run() error {
 	p := tea.NewProgram(a.model, tea.WithAltScreen())
