@@ -573,14 +573,14 @@ func simplifyADBError(err error) error {
 	switch {
 	case strings.Contains(msg, "signal: killed"),
 		strings.Contains(msg, "context deadline exceeded"):
-		return fmt.Errorf("ADB server not responding — auto-recovering...")
+		return fmt.Errorf("adb server not responding, auto-recovering")
 	case strings.Contains(msg, "Address already in use"):
-		return fmt.Errorf("ADB server port in use — auto-recovering...")
+		return fmt.Errorf("adb server port in use, auto-recovering")
 	case strings.Contains(msg, "failed to start daemon"),
 		strings.Contains(msg, "daemon not running"):
-		return fmt.Errorf("ADB server not available — auto-recovering...")
+		return fmt.Errorf("adb server not available, auto-recovering")
 	case strings.Contains(msg, "cannot connect to daemon"):
-		return fmt.Errorf("Cannot connect to ADB server — auto-recovering...")
+		return fmt.Errorf("cannot connect to adb server, auto-recovering")
 	}
 	return err
 }

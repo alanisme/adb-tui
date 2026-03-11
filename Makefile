@@ -14,7 +14,7 @@ LDFLAGS := -s -w \
 COVERAGE_OUT := coverage.out
 COVERAGE_MIN := 29
 
-.PHONY: build install test test-race test-verbose cover cover-html lint lint-fix vet check fmt clean dev ci
+.PHONY: build install test test-race test-verbose cover cover-html lint lint-fix vet check fmt clean dev ci release
 
 ## Build
 
@@ -77,6 +77,27 @@ check: fmt-check vet lint test-race
 
 ci: fmt-check vet lint cover-check
 
+## Release — usage: make release v=0.2.0
+
+release: check
+ifndef v
+	$(error Usage: make release v=X.Y.Z)
+endif
+	@if git rev-parse "v$(v)" >/dev/null 2>&1; then \
+		echo "ERROR: tag v$(v) already exists"; exit 1; \
+	fi
+	@if [ -n "$$(git status --porcelain)" ]; then \
+		echo "ERROR: working tree is dirty, commit first"; exit 1; \
+	fi
+	@echo ""
+	@echo "==> All checks passed. Releasing v$(v)..."
+	@echo ""
+	git tag -a "v$(v)" -m "Release v$(v)"
+	git push origin main
+	git push origin "v$(v)"
+	@echo ""
+	@echo "==> v$(v) released! GitHub Actions will build and publish."
+
 ## Dev
 
 dev: build
@@ -106,5 +127,6 @@ help:
 	@echo "  fmt-check    Check formatting (no write)"
 	@echo "  check        Run all quality checks (local)"
 	@echo "  ci           Run all CI checks with coverage gate"
+	@echo "  release      Release a version (make release v=X.Y.Z)"
 	@echo "  dev          Build and run"
 	@echo "  clean        Remove build artifacts"

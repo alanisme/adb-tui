@@ -22,20 +22,24 @@ var (
 )
 
 func main() {
+	code := run()
+	os.Exit(code)
+}
+
+func run() int {
 	// Restore terminal on unexpected panic so the shell isn't left in alt-screen mode.
 	defer func() {
 		if r := recover(); r != nil {
-			// Best-effort: leave alt screen and show cursor
 			fmt.Fprint(os.Stderr, "\x1b[?1049l\x1b[?25h")
 			fmt.Fprintf(os.Stderr, "panic: %v\n", r)
-			os.Exit(2)
 		}
 	}()
 
 	if err := rootCmd().Execute(); err != nil {
 		fmt.Fprintf(os.Stderr, "error: %v\n", err)
-		os.Exit(1)
+		return 1
 	}
+	return 0
 }
 
 func rootCmd() *cobra.Command {

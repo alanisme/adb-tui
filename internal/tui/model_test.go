@@ -1126,7 +1126,7 @@ func TestSimplifyADBError(t *testing.T) {
 		{"address in use", "Address already in use", "port in use"},
 		{"failed to start", "failed to start daemon", "not available"},
 		{"daemon not running", "daemon not running; starting now at tcp:5037", "not available"},
-		{"cannot connect", "cannot connect to daemon", "Cannot connect"},
+		{"cannot connect", "cannot connect to daemon", "cannot connect"},
 		{"passthrough", "device offline", "device offline"},
 	}
 	for _, tt := range tests {

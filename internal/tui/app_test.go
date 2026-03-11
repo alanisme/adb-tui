@@ -154,7 +154,7 @@ func TestQuit(t *testing.T) {
 	}
 
 	// second q confirms
-	result, cmd = model.Update(qMsg)
+	_, cmd = model.Update(qMsg)
 	if cmd == nil {
 		t.Fatal("second q should quit")
 	}
