@@ -1,0 +1,23 @@
+# Build
+adb-tui
+bin/
+dist/
+*.exe
+
+# Test
+*.test
+coverage.out
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# Tools
+.claude/

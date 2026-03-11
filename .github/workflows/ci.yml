@@ -1,0 +1,81 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    name: Check
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-go@v5
+        with:
+          go-version: "1.26"
+
+      - name: Check formatting
+        run: test -z "$(gofmt -s -l . 2>&1)"
+
+      - name: Run go vet
+        run: go vet ./...
+
+      - name: Run golangci-lint
+        uses: golangci/golangci-lint-action@v6
+        with:
+          version: latest
+
+  test:
+    name: Test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-go@v5
+        with:
+          go-version: "1.26"
+
+      - name: Run tests with race detector and coverage
+        run: go test -race -coverprofile=coverage.out -covermode=atomic ./...
+
+      - name: Check minimum coverage
+        run: |
+          total=$(go tool cover -func=coverage.out | grep '^total:' | awk '{print $NF}' | tr -d '%')
+          echo "Total coverage: ${total}%"
+          if [ "$(echo "${total} < 30" | bc -l)" -eq 1 ]; then
+            echo "FAIL: coverage below 30%"
+            exit 1
+          fi
+
+      - name: Upload coverage report
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage-report
+          path: coverage.out
+
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    needs: [check, test]
+    strategy:
+      matrix:
+        goos: [linux, darwin, windows]
+        goarch: [amd64, arm64]
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-go@v5
+        with:
+          go-version: "1.26"
+
+      - name: Build
+        env:
+          GOOS: ${{ matrix.goos }}
+          GOARCH: ${{ matrix.goarch }}
+        run: go build -o adb-tui-${{ matrix.goos }}-${{ matrix.goarch }} ./cmd/adb-tui

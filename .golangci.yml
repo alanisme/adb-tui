@@ -1,0 +1,44 @@
+version: "2"
+
+run:
+  timeout: 5m
+
+linters:
+  enable:
+    - govet
+    - errcheck
+    - staticcheck
+    - unused
+    - ineffassign
+    - gocritic
+    - misspell
+    - copyloopvar
+    - intrange
+
+  settings:
+    errcheck:
+      exclude-functions:
+        - fmt.Fprintf
+        - fmt.Fprintln
+        - (*os.File).Close
+        - (*bufio.Writer).Flush
+        - (io.Closer).Close
+        - (*net/http.Server).Shutdown
+        - (*os.Process).Kill
+        - (*os/exec.Cmd).Wait
+        - (*encoding/json.Encoder).Encode
+        - (*encoding/json.Decoder).Decode
+        - encoding/json.Unmarshal
+    gocritic:
+      disabled-checks:
+        - ifElseChain
+        - singleCaseSwitch
+
+  exclusions:
+    rules:
+      - path: _test\.go
+        linters:
+          - errcheck
+          - unused
+    presets:
+      - std-error-handling
